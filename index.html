@@ -99,13 +99,14 @@
         </div>
     </div>
 
-    <header class="fixed top-0 w-full bg-[#0A1F17] shadow-lg z-50 transition-all duration-300 py-4 relative overflow-hidden">
+    <header class="fixed top-0 w-full bg-[#0A1F17] shadow-lg z-50 transition-all duration-300 py-4 relative">
         <div class="absolute inset-0 bg-stripes opacity-20 pointer-events-none"></div>
         
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-20">
             <a href="#" class="block drop-shadow-md">
-                <img src="logo1.png" alt="Vaishnavi Evara Logo" class="h-20 w-auto object-contain">
+                <img src="logo1.png" alt="Vaishnavi Evara Logo" class="h-16 md:h-20 w-auto object-contain">
             </a>
+            
             <nav class="hidden md:block">
                 <ul class="flex gap-8 items-center text-gray-200 font-medium">
                     <li><a href="#overview" class="hover:text-accent transition-colors">Overview</a></li>
@@ -117,9 +118,27 @@
             <a href="#contact" class="hidden md:inline-block px-6 py-2.5 bg-accent text-primary font-montserrat font-bold rounded hover:bg-accent-hover hover:text-white transition-colors shadow-md">
                 Contact Us
             </a>
+
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl focus:outline-none hover:text-accent transition-colors">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#0A1F17] border-t border-gray-800 shadow-xl z-10 md:hidden flex flex-col items-center py-6">
+            <div class="absolute inset-0 bg-stripes opacity-20 pointer-events-none"></div>
+            <ul class="flex flex-col gap-6 w-full text-center text-gray-200 font-medium relative z-10">
+                <li><a href="#overview" class="mobile-link block w-full hover:text-accent transition-colors text-lg">Overview</a></li>
+                <li><a href="#gallery" class="mobile-link block w-full hover:text-accent transition-colors text-lg">Gallery</a></li>
+                <li><a href="#amenities" class="mobile-link block w-full hover:text-accent transition-colors text-lg">Amenities</a></li>
+                <li><a href="#location" class="mobile-link block w-full hover:text-accent transition-colors text-lg">Location</a></li>
+                <li>
+                    <a href="#contact" class="mobile-link inline-block mt-2 px-8 py-3 bg-accent text-primary font-montserrat font-bold rounded hover:bg-accent-hover hover:text-white transition-colors">
+                        Contact Us
+                    </a>
+                </li>
+            </ul>
         </div>
     </header>
-
     <section class="h-screen bg-hero-pattern bg-cover bg-center bg-no-repeat flex items-center justify-center text-center text-white pt-20">
         <div class="max-w-4xl mx-auto px-6">
             <h1 class="font-montserrat text-4xl md:text-6xl font-bold mb-6 animate-[fadeInDown_1s_ease-out_1.5s_backwards]">
@@ -580,6 +599,37 @@
                 if (e.key === "Escape" && lightbox.classList.contains('opacity-100')) {
                     closeLightbox();
                 }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const icon = mobileMenuBtn.querySelector('i');
+
+            // Toggle menu open/close
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                
+                // Change icon from hamburger to "X"
+                if(mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+
+            // Close menu automatically when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
             });
         });
     </script>
